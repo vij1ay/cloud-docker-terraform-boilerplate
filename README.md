@@ -7,7 +7,7 @@ Boilerplate for building, running, and deploying a full-stack application using:
 - ☁️ AWS & Azure (Free Tier Friendly)
 - 🌐 Nginx (Reverse Proxy)
 - ⚡ FastAPI (Backend)
-- ⚛️ Node.js (Frontend)
+- ⚛️ Node.js (Angular Frontend)
 - 🗄️ MongoDB (Database)
 
 This repository is designed as a **learning-first, real-world template** for developers who want to understand:
