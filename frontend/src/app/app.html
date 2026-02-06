@@ -1,0 +1,78 @@
+<div class="container">
+  <header>
+    <h1>Ethereal Stays</h1>
+    <button (click)=refresh() [disabled]=isLoading() class="refresh-btn">
+      Refresh Page
+    </button>
+  </header>
+
+  <main>
+    @if (errorMessage()) {
+    <div class="error-card">
+      <p>{{ errorMessage() }}</p>
+      <button (click)="loadListings()" class="retry-btn">Retry</button>
+    </div>
+    }
+
+    <!-- Listings Grid -->
+    @if (!isLoading() || listings().length > 0) {
+    <div class="listings-grid">
+      @for (listing of listings(); track listing._id) {
+      <div class="listing-card">
+        <div class="card-image">
+          <img [src]="listing.images.picture_url" [alt]="listing.name" loading="lazy">
+          <span class="property-type">{{ listing.property_type }}</span>
+        </div>
+        <div class="card-content">
+          <div class="card-header">
+            <h3>{{ listing.name }}</h3>
+            <span class="price">${{ listing.price }}</span>
+          </div>
+          <p class="location">{{ listing.address.street }}</p>
+          <p class="summary">{{ listing.summary }}</p>
+          <div class="card-footer">
+            <span>{{ listing.room_type }}</span>
+            <span>·</span>
+            <span>{{ listing.bedrooms }} BR</span>
+            <span>·</span>
+            <span>{{ listing.beds }} Beds</span>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+    }
+
+    <!-- Skeleton Loaders -->
+    @if (isLoading() && listings().length === 0) {
+    <div class="skeleton-grid">
+      @for (i of [1,2,3,4,5,6]; track i) {
+      <div class="skeleton-listing"></div>
+      }
+    </div>
+    }
+
+    <!-- Load More Section -->
+    @if (hasMore() && listings().length > 0) {
+    <div class="load-more-container">
+      <button (click)="loadMore()" [disabled]="isMoreLoading()" class="load-more-btn">
+        @if (!isMoreLoading()) {
+        <span>Load More Stays</span>
+        } @else {
+        <span class="spinner"></span>
+        }
+      </button>
+    </div>
+    }
+
+    @if (!hasMore() && listings().length > 0) {
+    <div class="no-more">
+      <p>You've seen all the stays!</p>
+    </div>
+    }
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Ethereal Stays App</p>
+  </footer>
+</div>

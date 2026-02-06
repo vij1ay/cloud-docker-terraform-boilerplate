@@ -1,0 +1,44 @@
+services:
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        API_URL: /api
+    volumes:
+      - frontend_dist:/app/dist/fact-app/browser
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    restart: always
+    expose:
+      - "8000"
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/airbnb_listing
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:6
+    restart: always
+    volumes:
+      - mongo_data:/data/db
+      - ./mongo-init:/docker-entrypoint-initdb.d
+
+  nginx:
+    image: nginx:alpine
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - frontend_dist:/usr/share/nginx/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - frontend
+      - backend
+
+volumes:
+  mongo_data:
+  frontend_dist:
