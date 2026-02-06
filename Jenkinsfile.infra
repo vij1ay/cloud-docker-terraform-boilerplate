@@ -3,12 +3,6 @@ pipeline {
 
   stages {
 
-    stage('Checkout') {
-      steps {
-        git 'https://github.com/vij1ay/cloud-docker-terraform-boilerplate.git'
-      }
-    }
-
     stage('Terraform Init') {
       steps {
         dir("aws-terraform") {
