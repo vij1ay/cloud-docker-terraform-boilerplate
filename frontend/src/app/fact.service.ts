@@ -36,7 +36,7 @@ import { environment } from '../environments/environment';
 })
 export class FactService {
     private http = inject(HttpClient);
-    private apiUrl = environment.apiUrl;
+    private apiUrl = '/api';
 
     getListings(page: number): Observable<AirbnbResponse> {
         console.log("Calling API - ", this.apiUrl + "/airbnb_listings?page=" + page);
