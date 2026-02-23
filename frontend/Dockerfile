@@ -15,9 +15,13 @@ RUN sed -i "s|__API_URL__|$API_URL|g" src/environments/environment.ts
 RUN npm run build --prod
 
 # Production stage
-# FROM nginx:alpine
+FROM nginx:alpine
 
-# COPY --from=build /app/dist/fact-app/browser/ /usr/share/nginx/html
+# Copy the custom nginx config
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 
-# EXPOSE 80
-# CMD ["nginx", "-g", "daemon off;"]
+# Copy the built assets
+COPY --from=build /app/dist/fact-app/browser/ /usr/share/nginx/html
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
