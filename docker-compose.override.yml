@@ -1,0 +1,9 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        API_URL: /api
+
+  backend:
+    build: ./backend

@@ -2,10 +2,6 @@ services:
 
   frontend:
     image: ${FRONTEND_IMAGE:-frontend-local:latest}
-    build:
-      context: ./frontend
-      args:
-        API_URL: /api
     ports:
       - "80:80"
     restart: always
@@ -14,7 +10,6 @@ services:
 
   backend:
     image: ${BACKEND_IMAGE:-backend-local:latest}
-    build: ./backend
     restart: always
     expose:
       - "8000"
