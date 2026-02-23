@@ -69,8 +69,8 @@ jobs:
             EOF
 
             # Bring up services with zero-downtime replacement
-            docker compose pull
-            docker compose up -d --remove-orphans
+            docker-compose pull
+            docker-compose up -d --remove-orphans
 
             # Clean up dangling images to free disk space
             docker image prune -f
