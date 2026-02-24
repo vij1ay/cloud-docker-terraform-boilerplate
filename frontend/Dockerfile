@@ -7,6 +7,12 @@ RUN npm install
 
 COPY . .
 
+# Substitute __API_URL__ with build argument if provided
+ARG API_URL
+RUN if [ -n "$API_URL" ]; then \
+    sed -i "s|__API_URL__|$API_URL|g" src/environments/environment.ts; \
+    fi
+
 RUN npm run build --prod
 
 # Production stage

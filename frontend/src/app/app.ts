@@ -43,7 +43,7 @@ export class App implements OnInit {
         },
         error: (err) => {
           console.error('Error fetching listings:', err);
-          this.errorMessage.set('Failed to fetch listings. Please ensure the backend is running at http://127.0.0.1:8000');
+          this.errorMessage.set('Failed to fetch listings. Please ensure the backend is running and accessible.');
         }
       });
   }
